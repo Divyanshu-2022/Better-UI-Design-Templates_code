@@ -1,0 +1,94 @@
+<!-- Html -->
+<HTML>
+
+<HEAD>
+  <TITLE>|Thank You|</TITLE>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+</HEAD>
+
+<BODY>
+
+
+  <header id="main-head" class="TYhead" color="white"><font color="white">
+    <h5>Thank You, Dudes!</h5></header>
+    
+    <a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;">See more</a>
+ 
+  
+<div id="example" class="more">
+  <p>
+    Kevin, <br>
+    <br> Thank you very much for the opportunity to interview for a developer position Friday. <br>
+    It was great to meet you and some fellow students to speak further about the position.
+    <br>I am extremely interested in the job, and would love to be a part of your team!
+    <br> Thank you, again, for the consideration, and I look forward to hearing from you!
+    
+    <br><br><br>Kelly O'Hara
+    <br> Central Michigan University
+    <br> kellyrene.ohara@gmail.com
+    <br> (734) 368-8908<br>
+    </p><a href="#" id="example-hide" class="hideLink" class="sh_font" onclick="showHide('example');return false;">Hide this content</a>
+    </div>
+
+</BODY>
+</HTML>
+<!-- CSS   -->
+  body {
+  background-image: url(http://imageshack.com/a/img911/3424/qMyVHf.jpg);
+  background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+div{
+  height: 550px;
+  width: 875px;
+  text-align: justify;
+  font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+}
+
+#main-head {
+  text-align: Center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 60px;
+}
+
+.more {
+  display: none;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+
+a.showLink,
+a.hideLink {
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 22px;
+  text-decoration: none;
+  color: #FFC0CB;
+  background: transparent url('down.gif') no-repeat left;
+}
+
+a.hideLink {
+  background: transparent url('up.gif') no-repeat left;
+}
+
+a.showLink:hover,
+a.hideLink:hover {
+  border-bottom: 1px solid #FFC0CB;
+}
+<!--  JS  -->
+  function showHide(shID) {
+	if (document.getElementById(shID)) {
+		if (document.getElementById(shID+'-show').style.display != 'none') {
+			document.getElementById(shID+'-show').style.display = 'none';
+			document.getElementById(shID).style.display = 'block';
+		}
+		else {
+			document.getElementById(shID+'-show').style.display = 'inline';
+			document.getElementById(shID).style.display = 'none';
+		}
+	}
+}
