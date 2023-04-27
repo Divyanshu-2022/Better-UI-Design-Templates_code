@@ -1,0 +1,290 @@
+<!-- HTMl -->
+<!-- IMPORTANT NOTE: Make sure your youtube video URL includes this string: &enablejsapi=1 
+Otherwise, the pause fuction will not work -->
+
+<div class="viewer">
+  
+  <div class="main-viewer">
+
+    <div class="slide">
+      <div class="container">
+        <img src="http://via.placeholder.com/150x350" />
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container">
+        <img src="http://via.placeholder.com/350x150" />
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container">
+        <img src="http://via.placeholder.com/200x200" />
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container">
+        <img src="http://via.placeholder.com/200x400" />
+      </div>
+    </div>
+    
+    <div class="slide">
+      <div class="container">
+        <img src="http://via.placeholder.com/100x100" />
+      </div>
+    </div>
+    
+    <div class="slide youtube">
+      <div class="container">
+        <iframe src="https://www.youtube.com/embed/5AxwaszFbDw?&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+  </div>
+  
+  <div class="thumb-viewer">
+
+    <div class="slide">
+      <div class="container square">
+        <img src="http://via.placeholder.com/150x350" />
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container square">
+        <img src="http://via.placeholder.com/350x150" />
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container square">
+        <img src="http://via.placeholder.com/200x200" />
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container square">
+        <img src="http://via.placeholder.com/200x400" />
+      </div>
+    </div>
+    
+    <div class="slide">
+      <div class="container square">
+        <img src="http://via.placeholder.com/100x100" />
+      </div>
+    </div>
+    
+    <div class="slide">
+      <div class="container square">
+        <img src="https://img.youtube.com/vi/5AxwaszFbDw/hqdefault.jpg" />
+      </div>
+    </div>
+
+  </div>
+  
+</div>
+
+<!-- CSS -->
+$viewerSize: 400px;
+$responsiveBreakpoint: 480px;
+
+html, body {
+  margin: 1vw;
+}
+
+.viewer {
+  display: block;
+  max-width: $viewerSize;
+  margin: 0 auto;
+}
+
+.main-viewer, .thumb-viewer {
+  width: 100%;
+  font-size: 0; // Removes errant white space
+}
+
+.thumb-viewer {
+  padding: 10px 0 0;
+  .container {
+    width: ($viewerSize / 4) - 10;
+    height: ($viewerSize / 4) - 10;
+  }
+  
+  .slick-slide {
+    margin: 5px;
+  }
+  
+  .slick-current {
+    border: 5px solid #ef0000;
+    margin: 0;
+  }
+}
+
+.slick-slide {
+  background: #fff;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: $viewerSize;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+  }
+  
+  iframe {
+    position: absolute;
+    top:50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 100%;
+  }
+  
+  &.portrait,
+  &.landscape {
+    img {
+      position: absolute;
+    }
+  }
+  
+  &.portrait img {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 100%;
+  }
+  
+  &.landscape img {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: auto;
+  }
+  
+  &.square {
+    overflow: hidden;
+    &.portrait img {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: auto;
+    }
+    &.landscape img {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: auto;
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: $responsiveBreakpoint) {
+  .viewer {
+    max-width: 100%;
+  }
+  
+  .thumb-viewer {
+    // width: 100%;
+    
+    .container {
+      width: 23vw;
+      height: 23vw;
+      margin: 0px;
+    }
+    
+    .slick-slide {
+      margin: 2px;
+    }
+    
+    .slick-current {
+      border: 2px solid #ef0000;
+      margin: 0;
+    }
+    
+  }
+  
+  .container {
+    width: 100%;
+    // height: 100%;
+    // height: 96vw;
+  }
+}
+
+<!-- JS  -->
+$(document).ready(function() {
+  
+  // Set container classes
+  $('.container').each(function() {
+    var width = $(this).find('img').outerWidth(),
+        height = $(this).find('img').outerHeight();
+
+    // console.log(width, height);
+
+    if(width > height) {
+      // It's Landscape
+      $(this).addClass('landscape');
+    } else if(height > width) {
+      // It's Portrait
+      $(this).addClass('portrait');
+    }
+  });
+  
+  function squareContainer() {
+    $('.main-viewer .container').each(function() {
+      $(this).css('height', $(this).outerWidth());
+    });
+  }
+  squareContainer();
+  
+  $(window).resize(squareContainer());
+  
+  // Separate out to make it easier to attach events
+  var $mainviewer = $('.main-viewer'),
+      $thumbviewer = $('.thumb-viewer');
+  
+  // Main view
+  $mainviewer.slick({
+    infinite: true,
+    slidesToShow: 1,
+    arrows: false,
+    asNavFor: '.thumb-viewer'
+  });
+  
+  // Thumbnail View
+  $thumbviewer.slick({
+    infinite: true,
+    slidesToShow: 4,
+    arrows: true,
+    asNavFor: '.main-viewer',
+    focusOnSelect: true
+   });
+  
+  // Pause YouTube Video on slide change
+  $mainviewer.on('beforeChange', function(slick, currentSlide, nextSlide) {
+
+      $('iframe').each(function() {
+        $(this)[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+      });
+
+  });
+  
+  
+  // Play YouTube Video if it is the current slide
+  $mainviewer.on('afterChange', function(slick, currentSlide, nextSlide) {
+    if($('.slick-current .slide').hasClass('youtube')) {
+      $('.slick-current iframe')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+    }
+  });
+  
+});
